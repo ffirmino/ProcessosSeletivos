@@ -1,0 +1,14 @@
+C:\Users\mathdam\source\repos\TesteBRQ\bin\Debug\netcoreapp2.2\TesteBRQ.deps.json
+C:\Users\mathdam\source\repos\TesteBRQ\bin\Debug\netcoreapp2.2\TesteBRQ.runtimeconfig.json
+C:\Users\mathdam\source\repos\TesteBRQ\bin\Debug\netcoreapp2.2\TesteBRQ.runtimeconfig.dev.json
+c:\Users\mathdam\source\repos\TesteBRQ\bin\Debug\netcoreapp2.2\TesteBRQ.dll
+c:\Users\mathdam\source\repos\TesteBRQ\bin\Debug\netcoreapp2.2\TesteBRQ.pdb
+c:\Users\mathdam\source\repos\TesteBRQ\obj\Debug\netcoreapp2.2\TesteBRQ.csprojAssemblyReference.cache
+c:\Users\mathdam\source\repos\TesteBRQ\obj\Debug\netcoreapp2.2\TesteBRQ.csproj.CoreCompileInputs.cache
+c:\Users\mathdam\source\repos\TesteBRQ\obj\Debug\netcoreapp2.2\TesteBRQ.RazorAssemblyInfo.cache
+c:\Users\mathdam\source\repos\TesteBRQ\obj\Debug\netcoreapp2.2\TesteBRQ.RazorAssemblyInfo.cs
+c:\Users\mathdam\source\repos\TesteBRQ\obj\Debug\netcoreapp2.2\TesteBRQ.AssemblyInfoInputs.cache
+c:\Users\mathdam\source\repos\TesteBRQ\obj\Debug\netcoreapp2.2\TesteBRQ.AssemblyInfo.cs
+c:\Users\mathdam\source\repos\TesteBRQ\obj\Debug\netcoreapp2.2\TesteBRQ.RazorTargetAssemblyInfo.cache
+c:\Users\mathdam\source\repos\TesteBRQ\obj\Debug\netcoreapp2.2\TesteBRQ.dll
+c:\Users\mathdam\source\repos\TesteBRQ\obj\Debug\netcoreapp2.2\TesteBRQ.pdb
