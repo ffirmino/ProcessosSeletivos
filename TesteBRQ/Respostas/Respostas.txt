@@ -1,0 +1,35 @@
+PERGUNTAS:
+
+•	EXPLIQUE COM SUAS PALAVRAS O QUE É DOMAIN DRIVEN DESIGN E SUA IMPORTÂNCIA NA ESTRATÉGIA DE DESENVOLVIMENTO DE SOFTWARE.
+No DDD a comunicação é um dos conceitos mais importantes, já que só é possível criar um domínio rico, através da destilação e desmistificação das regras do negócio, que só são disponíveis de conhecimento se houver a fonte desse conhecimento.
+A linguagem onipresente, ou ubíqua, é uma técnica que faz parte do bloco estratégico do DDD, e que nesse ambiente auxilia na comunicação, contextualização, identificação, refinamento ou concepção e delimitação dos conceitos de um processo de negócio, ela nos direciona na construção do desenho de modelo do domínio do negócio. No geral, ela fortalece os laços entre os especialistas do negócio e a equipe de desenvolvimento. E quanto melhor for a comunicação entre as equipes, mais fácil será o desenvolvimento, aumentando a qualidade do software em tempo e código.
+
+
+
+
+
+•	EXPLIQUE COM SUAS PALAVRAS O QUE É E COMO FUNCIONA UMA ARQUITETURA BASEADA EM MICROSERVICES. EXPLIQUE GANHOS COM ESTE MODELO E DESAFIOS EM SUA IMPLEMENTAÇÃO.
+Comparados às aplicações monolíticas, os microsserviços são muito mais fáceis de criar, testar, implantar e atualizar, em vez de ficarem presos no "corredor da morte" do demorado desenvolvimento de software tradicional. Além disso, os microsserviços permitem que diferentes áreas da equipe de desenvolvimento trabalhem de maneira ágil e simultânea nas soluções, agregando valor imediatamente aos clientes.
+Por verbos/casos de uso: o caso Checkout, por exemplo, em que um serviço de conclusão de pedidos, ou Checkout UI service, implementa a interface com as pessoas que usam o sistema.
+Por sinônimos/recursos: como exemplo, considere que, para gerenciamento do catálogo de mercadorias, a empresa pode ter o Catalog Service. Nesse caso, o serviço se responsabiliza por todas as atividades que envolvem os recursos/entidades relacionados.
+
+
+
+
+
+
+•	EXPLIQUE QUAL A DIFERENÇA ENTRE COMUNICAÇÃO SINCRONA E ASSINCRONA E QUAL O MELHOR CENÁRIO PARA UTILIZAR UMA OU OUTRA.
+Em uma comunicação síncrona o emissor e receptor são sincronizados pelo mesmo relógio, o receptor recebe de modo contínuo (mesmo quando nenhum bit é transmitido) os dados em compasso em que o emissor as remete.
+Em uma comunicação assíncrona a sincronização é diferente, o emissor envia o fluxo de dados e periodicamente insere um elemento de sinal, comumente chamado de flag, para que seja possível distinguir aonde começa (a informação de início da transmissão é o start-bit) e acaba (a informação de fim de transmissão é o stop-bit) o bloco de dados e qual a sua posição na sequência de dados transmitidos.
+
+Exempo em Javascript
+
+function foo(){
+    console.log("Executando algo assíncrono aqui");
+}
+function bar(){
+    setTimeout(foo, 0);
+    console.log("Alguma coisa por aqui");
+    console.log("...");
+}
+bar();
