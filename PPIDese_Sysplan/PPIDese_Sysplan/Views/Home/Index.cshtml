@@ -1,0 +1,38 @@
+﻿<h3>Prova Pratica - SYSPLAN</h3>
+<hr />
+<div ng-controller="clienteCtrl">
+    <table class="table table-striped">
+        <tr ng-repeat="cliente in clientes | filter : {nome : criterio}">
+            <td> {{cliente.Nome}} </td>
+            <td> {{Cliente.Renda | currency:"R$"}} </td>
+            <td> {{cliente.Data_Nascimento | date: "dd/MM/yyyy"}}</td>
+            <td class="text-right">
+                <button class="btn btn-danger" ng-click="DeletaCliente(cliente)" data-toggle="tooltip" title="Clique para Deletar o Cliente">X</button>
+            </td>
+            <td class="text-right">
+                <button class="btn btn-success" ng-click="SelecionaCliente(cliente)" data-toggle="tooltip" title="Clique para Selecionar o Cliente">S</button>
+            </td>
+        </tr>
+        <tr>
+            <th>Nome</th>
+            <th>Renda</th>
+            <th>Dt Nascimento</th>
+        </tr>
+        <tr>
+            <td><input type="text" required ng-model="cliente.Nome" placeholder="Nome do cliente" /></td>
+            <td><input type="text" required ng-model="Cliente.Renda" placeholder="Renda do cliente" /></td>
+            <td><input type="text" required ng-model="cliente.Data_Nascimento" placeholder="DT Nascimento"/> </td>
+            <td>
+                <a href="#" class="btn btn-primary" ng-click="IncluiCliente(cliente)" ng-disabled="!cliente.Nome || !Cliente.Renda || !cliente.Data_Nascimento"
+                   data-toggle="tooltip" title="Incluir">Novo</a>
+            </td>
+            <td>
+                <a href="#" class="btn btn-success" ng-click="AlteraCliente(cliente)" ng-disabled="!cliente.Nome || !Cliente.Renda || !cliente.Data_Nascimento"
+                   data-toggle="tooltip" title="Alterar">Altera</a>
+            </td>
+        </tr>
+    </table>
+    <div>
+        Pesquisar Cliente : <input type="text" placeholder="Digite qualquer caracter para a busca" ng-model="criterio" />
+    </div>
+</div>
