@@ -1,0 +1,14 @@
+C:\Users\Supremo-NT\source\repos\TesteK2\TesteK2\bin\Debug\TesteK2.exe.config
+C:\Users\Supremo-NT\source\repos\TesteK2\TesteK2\bin\Debug\TesteK2.exe
+C:\Users\Supremo-NT\source\repos\TesteK2\TesteK2\bin\Debug\TesteK2.pdb
+C:\Users\Supremo-NT\source\repos\TesteK2\TesteK2\obj\Debug\TesteK2.csprojAssemblyReference.cache
+C:\Users\Supremo-NT\source\repos\TesteK2\TesteK2\obj\Debug\TesteK2.csproj.CoreCompileInputs.cache
+C:\Users\Supremo-NT\source\repos\TesteK2\TesteK2\obj\Debug\TesteK2.exe
+C:\Users\Supremo-NT\source\repos\TesteK2\TesteK2\obj\Debug\TesteK2.pdb
+C:\Users\firmino\source\repos\ProcessosSeletivos\TesteK2\TesteK2\bin\Debug\TesteK2.exe.config
+C:\Users\firmino\source\repos\ProcessosSeletivos\TesteK2\TesteK2\bin\Debug\TesteK2.exe
+C:\Users\firmino\source\repos\ProcessosSeletivos\TesteK2\TesteK2\bin\Debug\TesteK2.pdb
+C:\Users\firmino\source\repos\ProcessosSeletivos\TesteK2\TesteK2\obj\Debug\TesteK2.csprojAssemblyReference.cache
+C:\Users\firmino\source\repos\ProcessosSeletivos\TesteK2\TesteK2\obj\Debug\TesteK2.csproj.CoreCompileInputs.cache
+C:\Users\firmino\source\repos\ProcessosSeletivos\TesteK2\TesteK2\obj\Debug\TesteK2.exe
+C:\Users\firmino\source\repos\ProcessosSeletivos\TesteK2\TesteK2\obj\Debug\TesteK2.pdb
