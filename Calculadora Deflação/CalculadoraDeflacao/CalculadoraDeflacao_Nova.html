@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html  lang="pt-br">
+	<head>
+		<meta charset="Content-Type: text/html; charset=UTF-8">
+		<!--[if lt IE 9]>
+  			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<![endif]-->
+		
+	<!-- Bootstrap CSS -->
+	
+	<script scr="Scripts\jquery-3.3.1.slim.min.js"></script>
+	<script scr="Scripts\popper.min.js"></script>
+	<script type="text/javascript"  src="Scripts/bootstrap.min.js"></script>
+	<script type="text/javascript"  src="Scripts/jquery-1.10.2.min.js"></script>
+	<script  type="text/javascript" src="Scripts/moment.js"> </script>	
+	
+	<link rel="stylesheet" href="Content\bootstrap.min.css" >
+	
+
+	
+	<title>Calculadora de Deflação</title>
+
+
+
+		<script  type="text/javascript">
+			
+			String.PAD_LEFT  = 0;
+			String.PAD_RIGHT = 1;
+			String.PAD_BOTH  = 2;
+
+
+			String.prototype.pad = function(size, pad, side) {
+			  var str = this, append = "", size = (size - str.length);
+			  var pad = ((pad != null) ? pad : " ");
+			  if ((typeof size != "number") || ((typeof pad != "string") || (pad == ""))) {
+				throw new Error("Wrong parameters for String.pad() method.");
+			  }
+			  if (side == String.PAD_BOTH) {
+				str = str.pad((Math.floor(size / 2) + str.length), pad, String.PAD_LEFT);
+				return str.pad((Math.ceil(size / 2) + str.length), pad, String.PAD_RIGHT);
+			  }
+
+			  while ((size -= pad.length) > 0) {
+				append += pad;
+			  }
+
+			  append += pad.substr(0, (size + pad.length));
+			  return ((side == String.PAD_LEFT) ? append.concat(str) : str.concat(append));
+			}
+
+			Number.prototype.format = function(d_len, d_pt, t_pt) {
+			  var d_len = d_len || 0;
+			  var d_pt = d_pt || ".";
+			  var t_pt = t_pt || ",";
+			  if ((typeof d_len != "number")
+				|| (typeof d_pt != "string")
+				|| (typeof t_pt != "string")) {
+				throw new Error("wrong parameters for method 'String.pad()'.");
+			  }
+			  var integer = "", decimal = "";
+			  var n = new String(this).split(/\./), i_len = n[0].length, i = 0;
+			  if (d_len > 0) {
+				n[1] = (typeof n[1] != "undefined") ? n[1].substr(0, d_len) : "";
+				decimal = d_pt.concat(n[1].pad(d_len, "0", String.PAD_RIGHT));
+			  }
+
+			  while (i_len > 0) {
+				if ((++i % 3 == 1) && (i_len != n[0].length)) {
+				  integer = t_pt.concat(integer);
+				}
+				integer = n[0].substr(--i_len, 1).concat(integer);
+			  }
+			  return (integer + decimal);
+			}
+			
+			function fctValidaData(obj)
+			{
+				if ( moment(obj).isBefore(new Date))
+				{
+					return false;
+				}
+				return true;
+				
+			}
+			
+			
+			function Limpar()
+			{
+				document.getElementById("valor").value = "";
+				document.getElementById("juros").value = "";
+				document.getElementById("qtd").value = "";
+				document.getElementById("v1").value = "";
+				document.getElementById("v2").value = "";
+							
+				document.getElementById("valorTotalParcelas").value = "0,00";
+				document.getElementById("desconto").value = "0,00";
+				document.getElementById("deflacaoComDesconto").value = "0,00";
+				document.getElementById("valorASerPago").value = "0,00";				
+			};
+			
+			function Calcular()
+			{
+
+				var v1 = moment(document.getElementById("v1").value, "DD/MM/YYYY hh:mm");
+				var v2 = moment(document.getElementById("v2").value, "DD/MM/YYYY hh:mm");
+				var juros = document.getElementById("juros").value;
+				var par = document.getElementById("valor").value;
+				var qtd = document.getElementById("qtd").value;
+				var desconto = 0 ;
+				var diffDays = v1.diff(v2, 'days') * (-1);
+				var valorAserPago = 0;
+
+				var totaldasparcelas = Math.abs(qtd * par);
+				var descontoTotal = 0;
+
+
+				if(par == "" || par == null ) {
+					alert("Preencher o valor de cada parcela.");
+					return false;
+				};
+		
+				if(juros == "" || juros == null ) {
+					alert("Preencher o valor do juros.");
+					return false;
+				};
+
+				if(qtd == "" || qtd == null ) {
+					alert("Preencher o valor das parcelas.");
+					return false;
+				};
+
+				if(v1 == "" || v1 == null || !v1.isValid() ) {
+					alert("Preencher a data do proximo vencimento no formado DD/MM/AAAA.");
+					return false;
+				};
+				
+				
+				var dataAtual = new Date().toDateString();
+				
+				if (moment(v1).isBefore(dataAtual))
+				{
+					alert("A data do proximo vencimento não pode ser menor que a data de hoje");
+					return false;
+				}
+				
+				
+
+				if(v2 == "" || v2 == null || !v2.isValid()) {
+					alert("Preencher a data do último vencimento no formado DD/MM/AAAA.");
+					return false;
+				};
+				
+				if (moment(v2).isBefore(v1))
+				{
+					alert("A data do último vencimento não pode ser menor que a data do proximo vencimento.");
+					return false;
+				}
+				
+				var parcelasPelasDatas = Math.abs(v1.diff(v2, "month"));
+				
+				if (parcelasPelasDatas < qtd)
+				{
+					alert("Número de parcelas não permitido - limite de " + parcelasPelasDatas + " parcelas");
+					return false;
+				}
+
+
+				juros = juros.replace(",",".");
+				juros = Math.abs(juros /100);
+
+				par = par.replace(",",".");
+				totaldasparcelas = Math.abs(qtd * par);
+
+				var periodo = Math.abs(diffDays / 30);
+
+				for (i=0; i < qtd; i++)
+				{
+
+					var sup = par;
+					var sub = Math.pow((1+juros),periodo);
+
+					desconto += par / (Math.pow((1+juros),periodo));	
+					
+					diffDays = diffDays - 30;
+					periodo = Math.abs(diffDays / 30);
+					
+				};
+
+				descontoTotal = totaldasparcelas - desconto;
+				valorAserPago = Number( desconto);
+
+				if (qtd <= parcelasPelasDatas )
+				{
+					valorAserPago = valorAserPago + Number(par);
+				}
+				
+				
+								 
+				document.getElementById("deflacaoComDesconto").value = "R$ " + desconto.format(3, ",", ".");
+				document.getElementById("valorTotalParcelas").value = "R$ " + totaldasparcelas.format(3, ",", ".");
+				document.getElementById("desconto").value = "R$ " + descontoTotal.format(3, ",", ".");
+				document.getElementById("valorASerPago").value = "R$ " + valorAserPago.format(3 , ",", ".");
+			};
+
+		</script>
+	</head>
+
+	<body>
+	
+	<div class="container">
+		<div class="card-deck mb-1 text-center ">
+			<div class="card mb-8 bg-red text-white">
+				<h1>CBSS</h1>
+			</div>
+
+		</div>
+	</div>
+	
+	<div class="container">
+	
+	
+		<div class"card-deck mb-1 text-center">
+			<div class="card mb-8 box-shadow">
+	
+
+			<div class="row">
+			<div class="col-md-12 text-center">
+				<h1 class="page-header">Calculadora de Deflação</h1>
+			</div>
+			</div>
+				
+		
+		
+		
+				<div class="row">
+						<div class="col-md-3 text-right">
+							<label> Valor de Cada Parcela</label>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" id="valor" value=""  TextMode="Date" Class="form-control" placeholder="Valor da Parcela"  pattern="[0-9]+$" required="required" required>
+							</div>
+						</div>
+				</div>
+
+				<div class="row">
+								<div class="col-md-3 text-right">
+							<label class="control-label">Taxa de Juros</label>
+					</div>
+					<div class="col-md-6">
+									<div class="form-group">
+						<input type="text" id="juros" value="" Class="form-control" placeholder="Taxa de Juros" required>
+									</div>
+								</div>
+				</div>
+
+				<div class="row">
+								<div class="col-md-3 text-right">
+							<label class="control-label">Parcelas a Deflacionar</label>
+					</div>
+					<div class="col-md-6">
+									<div class="form-group">
+						<input type="text" id="qtd" value="" Class="form-control" placeholder="Parcelas" required>
+									</div>
+								</div>
+				</div>
+
+
+				<div class="row">
+								<div class="col-md-3 text-right">
+							<label class="control-label">Próximo Vencimento</label>
+					</div>
+					<div class="col-md-6">
+									<div class="form-group">
+						<input type="text" id="v1" value="" Class="form-control" placeholder="Data" required  pattern="[0-9]{2}\/[0-9]{2}\/[0-9]{4}$">
+									</div>
+								</div>
+				</div>
+				
+
+				<div class="row">
+								<div class="col-md-3 text-right">
+							<label class="control-label">Último Vencimento</label>
+					</div>
+					<div class="col-md-6">
+									<div class="form-group">
+						<input type="text" id="v2" value="" Class="form-control" placeholder="Data" required  pattern="[0-9]{2}\/[0-9]{2}\/[0-9]{4}$">
+									</div>
+								</div>
+				</div>
+			<hr >
+				<div class="row">
+								<div class="col-md-3 text-right">
+							<label class="control-label">Valor Total das Parcelas</label>
+					</div>
+					<div class="col-md-6">
+									<div class="form-group">
+						<input type="text" id="valorTotalParcelas" value="0,00" Class="form-control" placeholder="Valor" required>
+									</div>
+								</div>
+				</div>
+				<div class="row">
+								<div class="col-md-3 text-right">
+							<label class="control-label">Desconto</label>
+					</div>
+					<div class="col-md-6">
+									<div class="form-group">
+						<input type="text" id="desconto" value="0,00" Class="form-control" placeholder="Desconto" required>
+									</div>
+								</div>
+				</div>
+
+				<div class="row">
+								<div class="col-md-3 text-right">
+							<label class="control-label">Deflação com desconto</label>
+					</div>
+					<div class="col-md-6">
+									<div class="form-group">
+						<input type="text" id="deflacaoComDesconto" value="0,00" Class="form-control" placeholder="Deflação" required>
+									</div>
+								</div>
+				</div>
+				
+				<div class="row">
+								<div class="col-md-3 text-right">
+							<label class="control-label">Valor a Ser Pago</label>
+					</div>
+					<div class="col-md-6">
+									<div class="form-group">
+
+											<input type="text" id="valorASerPago" value="0,00" Class="form-control" placeholder="Valor a Ser Pago" required>
+									</div>
+								</div>
+				</div>
+
+
+				<br />
+					<div class="row">
+							<div class="col-md-3"> </div>
+							<div class="col-md9">
+								<div class="form-group">
+								
+									<button type="button" class="btn btn-primary"   onclick="Calcular();"> Calcular</button>
+									<button id="btnLimpar" type="button" class="btn btn-secondary" onclick="Limpar();" >Limpar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	</body>
+
+</html>
